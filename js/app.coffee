@@ -8,6 +8,7 @@ class SoniteApp
   next: () ->
     @history.push @container.val()
     jQuery('#sonite-history').attr 'data-content', @history.join(', ')
+    $('#sonite-history').popover 'hide'
     @container.val sonite()
 
   isPrev: () ->
