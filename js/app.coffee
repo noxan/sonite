@@ -26,4 +26,6 @@ jQuery('#sonite-button').on 'click', (evt) ->
 jQuery(document).ready () ->
   document.soniteapp = new SoniteApp()
 
-$('#sonite-history').popover()
+$('#sonite-history').popover {
+  'placement': 'bottom'
+}

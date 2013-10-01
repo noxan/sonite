@@ -6,3 +6,7 @@
 #sonite-history {
   display: none;
 }
+
+.popover-content {
+  width: 20em;
+}
