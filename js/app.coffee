@@ -18,9 +18,14 @@ class SoniteApp
   updateOptions: () ->
     this.options.endsWith = $('#sonite-options-endswith').val()
     this.options.startsWith = $('#sonite-options-startswith').val()
+    minLength = this.options.endsWith.length + this.options.startsWith.length
     newValue = parseInt($('#sonite-options-totallength').val())
-    if not isNaN(newValue) and newValue > 0
-      this.options.totalLength = newValue
+    if not isNaN(newValue)
+      if newValue > minLength
+        this.options.totalLength = newValue
+      else
+        this.options.totalLength = minLength
+        $('#sonite-options-totallength').val(this.options.totalLength)
     else
       return $('#sonite-options-totallength').val(this.options.totalLength)
     this.next()
@@ -30,7 +35,10 @@ class SoniteApp
     jQuery('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
     length = this.options.totalLength - this.options.startsWith.length - this.options.endsWith.length
-    @container.val this.options.startsWith + sonite(length) + this.options.endsWith
+    if length > 0
+      @container.val this.options.startsWith + sonite(length) + this.options.endsWith
+    else
+      @container.val this.options.startsWith + this.options.endsWith
 
   isPrev: () ->
     @history.length > 0
