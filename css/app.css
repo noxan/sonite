@@ -7,6 +7,10 @@
   display: none;
 }
 
+#sonite-options-menu {
+  display: none;
+}
+
 .popover-content {
   width: 20em;
 }
