@@ -25,10 +25,8 @@ class SoniteApp
         this.options.totalLength = newLength
       else
         this.options.totalLength = minLength
-        $('#sonite-options-totallength').val(this.options.totalLength)
-    else
-      return $('#sonite-options-totallength').val(this.options.totalLength)
-    this.next()
+      this.next()
+    $('#sonite-options-totallength').val(this.options.totalLength)
 
   next: () ->
     @history.push @container.val()
