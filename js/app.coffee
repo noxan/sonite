@@ -30,10 +30,7 @@ class SoniteApp
     $('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
     length = this.options.totalLength - this.options.startsWith.length - this.options.endsWith.length
-    if length > 0
-      @container.val this.options.startsWith + sonite(length) + this.options.endsWith
-    else
-      @container.val this.options.startsWith + this.options.endsWith
+    @container.val [this.options.startsWith, sonite(length), this.options.endsWith].join('')
 
   isPrev: () ->
     @history.length > 0
