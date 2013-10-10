@@ -10,6 +10,8 @@ class SoniteApp
     this.optionsUpdateLength()
     $('#sonite-options-length').on 'change', (evt) =>
       this.optionsUpdateLength()
+    $('#sonite-options-startswith').on 'change', (evt) =>
+      this.optionsUpdateStartsWith()
 
   optionsUpdateLength: () ->
     newValue = parseInt($('#sonite-options-length').val())
@@ -19,14 +21,19 @@ class SoniteApp
     else
       $('#sonite-options-length').val(this.options.length)
 
+  optionsUpdateStartsWith: () ->
+    this.options.startsWith = $('#sonite-options-startswith').val()
+    this.next()
+
   options:
     length: 6
+    startsWith: ''
 
   next: () ->
     @history.push @container.val()
     jQuery('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
-    @container.val sonite(this.options.length)
+    @container.val this.options.startsWith + sonite(this.options.length)
 
   isPrev: () ->
     @history.length > 0
