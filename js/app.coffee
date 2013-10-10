@@ -7,40 +7,32 @@ class SoniteApp
 
     $('#sonite-options-button').popover()
 
-    this.optionsUpdateLength()
-    $('#sonite-options-length').on 'change', (evt) =>
-      this.optionsUpdateLength()
-    $('#sonite-options-startswith').on 'change', (evt) =>
-      this.optionsUpdateStartsWith()
-    $('#sonite-options-endswith').on 'change', (evt) =>
-      this.optionsUpdateEndsWith()
-
-  optionsUpdateLength: () ->
-    newValue = parseInt($('#sonite-options-length').val())
-    if not isNaN(newValue) and newValue > 0
-      this.options.length = newValue
-      this.next()
-    else
-      $('#sonite-options-length').val(this.options.length)
-
-  optionsUpdateStartsWith: () ->
-    this.options.startsWith = $('#sonite-options-startswith').val()
-    this.next()
-
-  optionsUpdateEndsWith: () ->
-    this.options.endsWith = $('#sonite-options-endswith').val()
-    this.next()
+    $('.sonite-options-field').on 'change', (evt) =>
+      this.updateOptions()
 
   options:
-    length: 6
+    totalLength: 6
     startsWith: ''
     endsWith: ''
+
+  updateOptions: () ->
+    this.options.endsWith = $('#sonite-options-endswith').val()
+    this.options.startsWith = $('#sonite-options-startswith').val()
+    newValue = parseInt($('#sonite-options-totallength').val())
+    if not isNaN(newValue) and newValue > 0
+      this.options.totalLength = newValue
+    else
+      return $('#sonite-options-totallength').val(this.options.totalLength)
+
+    this.next()
+
 
   next: () ->
     @history.push @container.val()
     jQuery('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
-    @container.val this.options.startsWith + sonite(this.options.length) + this.options.endsWith
+    length = this.options.totalLength - this.options.startsWith.length - this.options.endsWith.length
+    @container.val this.options.startsWith + sonite(length) + this.options.endsWith
 
   isPrev: () ->
     @history.length > 0
