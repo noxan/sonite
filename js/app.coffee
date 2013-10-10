@@ -5,11 +5,28 @@ class SoniteApp
     @container = jQuery('#sonite-container')
     @container.val sonite()
 
+    $('#sonite-options-button').popover()
+
+    this.optionsUpdateLength()
+    $('#sonite-options-length').on 'change', (evt) =>
+      this.optionsUpdateLength()
+
+  optionsUpdateLength: () ->
+    newValue = parseInt($('#sonite-options-length').val())
+    if not isNaN(newValue)
+      this.options.length = newValue
+      this.next()
+    else
+      $('#sonite-options-length').val(this.options.length)
+
+  options:
+    length: 6
+
   next: () ->
     @history.push @container.val()
     jQuery('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
-    @container.val sonite()
+    @container.val sonite(this.options.length)
 
   isPrev: () ->
     @history.length > 0
