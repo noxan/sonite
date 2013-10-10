@@ -2,7 +2,7 @@ class SoniteApp
   constructor: () ->
     console.log "sonite"
     @history = []
-    @container = jQuery('#sonite-container')
+    @container = $('#sonite-container')
     @container.val sonite()
 
     $('#sonite-options-button').popover()
@@ -27,7 +27,7 @@ class SoniteApp
 
   next: () ->
     @history.push @container.val()
-    jQuery('#sonite-history').attr 'data-content', @history.join(', ')
+    $('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
     length = this.options.totalLength - this.options.startsWith.length - this.options.endsWith.length
     if length > 0
@@ -43,11 +43,11 @@ class SoniteApp
 
 
 
-jQuery('#sonite-button').on 'click', (evt) ->
+$('#sonite-button').on 'click', (evt) ->
   document.soniteapp.next()
-  jQuery('#sonite-history').fadeIn('slow')
+  $('#sonite-history').fadeIn('slow')
 
-jQuery(document).ready () ->
+$(document).ready () ->
   document.soniteapp = new SoniteApp()
 
 $('#sonite-history').popover {
