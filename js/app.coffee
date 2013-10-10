@@ -21,10 +21,7 @@ class SoniteApp
     minLength = this.options.endsWith.length + this.options.startsWith.length
     newLength = parseInt($('#sonite-options-totallength').val())
     if not isNaN(newLength)
-      if newLength > minLength
-        this.options.totalLength = newLength
-      else
-        this.options.totalLength = minLength
+      this.options.totalLength = Math.max(newLength, minLength)
       this.next()
     $('#sonite-options-totallength').val(this.options.totalLength)
 
