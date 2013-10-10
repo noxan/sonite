@@ -13,7 +13,7 @@ class SoniteApp
 
   optionsUpdateLength: () ->
     newValue = parseInt($('#sonite-options-length').val())
-    if not isNaN(newValue)
+    if not isNaN(newValue) and newValue > 0
       this.options.length = newValue
       this.next()
     else
