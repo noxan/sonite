@@ -6,6 +6,7 @@ class SoniteApp
     @container.val sonite()
 
     $('#sonite-options-button').on 'click', (evt) =>
+      $('#sonite-history').popover 'hide'
       $('#sonite-options-menu').fadeToggle()
 
     $('.sonite-options-field').on 'change', (evt) =>
