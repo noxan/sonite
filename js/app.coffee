@@ -2,14 +2,37 @@ class SoniteApp
   constructor: () ->
     console.log "sonite"
     @history = []
-    @container = jQuery('#sonite-container')
+    @container = $('#sonite-container')
     @container.val sonite()
+
+    $('#sonite-options-button').on 'click', (evt) =>
+      $('#sonite-history').popover 'hide'
+      $('#sonite-options-menu').fadeToggle()
+
+    $('.sonite-options-field').on 'change', (evt) =>
+      this.updateOptions()
+
+  options:
+    totalLength: 6
+    startsWith: ''
+    endsWith: ''
+
+  updateOptions: () ->
+    this.options.endsWith = $('#sonite-options-endswith').val()
+    this.options.startsWith = $('#sonite-options-startswith').val()
+    minLength = this.options.endsWith.length + this.options.startsWith.length
+    newLength = parseInt($('#sonite-options-totallength').val())
+    if not isNaN(newLength)
+      this.options.totalLength = Math.max(newLength, minLength, 1)
+      this.next()
+    $('#sonite-options-totallength').val(this.options.totalLength)
 
   next: () ->
     @history.push @container.val()
-    jQuery('#sonite-history').attr 'data-content', @history.join(', ')
+    $('#sonite-history').attr 'data-content', @history.join(', ')
     $('#sonite-history').popover 'hide'
-    @container.val sonite()
+    length = this.options.totalLength - this.options.startsWith.length - this.options.endsWith.length
+    @container.val [this.options.startsWith, sonite(length), this.options.endsWith].join('')
 
   isPrev: () ->
     @history.length > 0
@@ -19,11 +42,11 @@ class SoniteApp
 
 
 
-jQuery('#sonite-button').on 'click', (evt) ->
+$('#sonite-button').on 'click', (evt) ->
   document.soniteapp.next()
-  jQuery('#sonite-history').fadeIn('slow')
+  $('#sonite-history').fadeIn('slow')
 
-jQuery(document).ready () ->
+$(document).ready () ->
   document.soniteapp = new SoniteApp()
 
 $('#sonite-history').popover {
