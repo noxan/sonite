@@ -1,3 +1,5 @@
+PATH:=./node_modules/.bin:${PATH}
+
 init:
 	npm install
 
