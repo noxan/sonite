@@ -1,5 +1,7 @@
 PATH:=./node_modules/.bin:${PATH}
 
+.PHONY: init clean build dist publish
+
 init:
 	npm install
 
